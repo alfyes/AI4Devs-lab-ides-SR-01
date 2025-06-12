@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import candidateRoutes from './routes/candidate.routes';
@@ -6,6 +7,13 @@ import { logger } from './utils/logger';
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
+
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://localhost:3000', // URL del frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Middleware para parsear JSON
 app.use(express.json());
