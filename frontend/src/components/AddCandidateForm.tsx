@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -28,6 +29,7 @@ const validationSchema = Yup.object({
 });
 
 const AddCandidateForm: React.FC = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,8 +66,9 @@ const AddCandidateForm: React.FC = () => {
         });
 
         setSuccess(true);
-        formik.resetForm();
-        setFile(null);
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
       } catch (err) {
         setError('Error al crear el candidato. Por favor, intente nuevamente.');
       } finally {
